@@ -1,4 +1,0 @@
-repository "XR-Interaction-Toolkit-Examples-main@schris11@cloud"
-  path "/"
-    br "/main"
-    co "/main"
