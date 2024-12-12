@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 
 public class gameManager : MonoBehaviour
@@ -45,5 +47,22 @@ public class gameManager : MonoBehaviour
     {
         p1score.text = "P1 Score: " + p1_num;
         p2score.text = "P2 Score: " + p2_num;
+
+        if (p1_num == 10)
+        {
+            SceneManager.LoadScene(2);
+            
+        }
+    
+        if (p2_num == 10)
+        {
+            SceneManager.LoadScene(3);
+        }
+    
+    
     }
+    
+
+
+
 }
