@@ -50,10 +50,9 @@ public class gameManager : MonoBehaviour
 
         if (p1_num == 10)
         {
-            SceneManager.LoadScene(2);
-            
+            SceneManager.LoadScene(2);     
         }
-    
+            
         if (p2_num == 10)
         {
             SceneManager.LoadScene(3);

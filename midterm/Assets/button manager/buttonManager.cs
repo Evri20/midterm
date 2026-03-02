@@ -9,6 +9,7 @@ public class buttonManager : MonoBehaviour
     public Canvas startCanvas;
     public Canvas cardCanvas;
     
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +22,11 @@ public class buttonManager : MonoBehaviour
         
     }
 
+    public void StartMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+    
     public void StartGame()
     {
        
