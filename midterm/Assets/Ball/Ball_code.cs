@@ -13,6 +13,8 @@ public class Ball_code : MonoBehaviour
     private Vector2 startPos;
     public GameObject bl;
     private int dir;
+
+    private bool canHit = true;
     // Start is called before the first frame update
     void Awake()
     {
@@ -23,12 +25,12 @@ public class Ball_code : MonoBehaviour
         {
             randomDirection = new Vector2(Random.Range(-0.2f, -1f), Random.Range(-1f, 1f));
             randomDirection.Normalize();
-            ball.velocity = randomDirection * bounceForce * speed;
+            ball.linearVelocity = randomDirection * bounceForce * speed;
         }else
         {
             randomDirection = new Vector2(Random.Range(0.2f, 1f), Random.Range(-1f, 1f));
             randomDirection.Normalize();
-            ball.velocity = randomDirection * bounceForce * speed;
+            ball.linearVelocity = randomDirection * bounceForce * speed;
         }
         
 
@@ -40,23 +42,51 @@ public class Ball_code : MonoBehaviour
     {
         
     }
+
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.transform.tag == "walls")
+        Debug.Log(collision.transform.tag);
+        if (collision.transform.tag == "walls" && canHit)
         {
            randomDirection *= new Vector2(1, -1);
-            ball.velocity = randomDirection * bounceForce * speed;
+            ball.linearVelocity = randomDirection * bounceForce * speed;
             randomDirection.Normalize();
+            StartCoroutine(HitCooldown());
+        }
+
+        if (collision.collider.CompareTag("bodyZone") && canHit)
+        {
+            Debug.Log("hit");
+            randomDirection *= new Vector2(-1, 1);
+            ball.linearVelocity = randomDirection * bounceForce * speed;
+            randomDirection.Normalize();
+            StartCoroutine(HitCooldown());
+        }
+
+        if ((collision.collider.CompareTag("topZone") || collision.collider.CompareTag("bottomZone")) && canHit)
+        {
+            Debug.Log("hittop");
+            randomDirection *= new Vector2(1, -1);
+            ball.linearVelocity = randomDirection * bounceForce * speed;
+            randomDirection.Normalize();
+            StartCoroutine(HitCooldown());
         }
         
-        if (collision.transform.tag == "players")
-        {
-            randomDirection *= new Vector2(-1, 1);
-            ball.velocity = randomDirection * bounceForce * speed;
-            randomDirection.Normalize();
-        }
     
     }
+
+    
+
+    IEnumerator HitCooldown()
+    {
+        canHit = false;
+        yield return new WaitForSeconds(0.05f);
+        canHit = true;
+    }
+   
+   
+   
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //points
