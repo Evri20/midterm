@@ -18,6 +18,7 @@ public class gameManager : MonoBehaviour
 
     public TextMeshProUGUI p2score;
     public int p2_num;
+    public Canvas scoreCanvas;
     
     
     
@@ -38,30 +39,34 @@ public class gameManager : MonoBehaviour
     void Start()
     {
         p1_num = 0;
-        p1score.text = "P1 Score: " + p1_num;
         p2_num = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        p1score.text = "P1 Score: " + p1_num;
-        p2score.text = "P2 Score: " + p2_num;
-
+        p1score.text = "Max Score: " + p1_num;
+        p2score.text = "Charles Score: " + p2_num;
+    
         if (p1_num == 10)
         {
-            SceneManager.LoadScene(2);     
+            SceneManager.LoadScene(2);   
+            scoreCanvas.enabled = false;
+            p1score.enabled = false;
+            p2score.enabled = false; 
+            p1_num = 0;
+            p2_num = 0; 
         }
             
         if (p2_num == 10)
         {
             SceneManager.LoadScene(3);
+            p1score.enabled = false;
+            p2score.enabled = false;  
+            scoreCanvas.enabled = false;  
+            p1_num = 0;
+            p2_num = 0;
         }
-    
-    
-    }
-    
 
-
-
+}
 }
