@@ -34,10 +34,14 @@ public class gameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
     }
 
     void Start()
     {
+        scoreCanvas.enabled = true;
+        p1score.enabled = true;
+        p2score.enabled = true;
         p1_num = 0;
         p2_num = 0;
     }
@@ -45,6 +49,7 @@ public class gameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         p1score.text = "Max Score: " + p1_num;
         p2score.text = "Charles Score: " + p2_num;
     
@@ -68,5 +73,28 @@ public class gameManager : MonoBehaviour
             p2_num = 0;
         }
 
-}
+    }
+    private void OnEnable()
+    {
+    SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+    SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.buildIndex == 1) // your game scene
+        {
+            scoreCanvas = GameObject.Find("Score Canvas").GetComponent<Canvas>();
+            p1score = GameObject.Find("p1score").GetComponent<TextMeshProUGUI>();
+            p2score = GameObject.Find("p2score").GetComponent<TextMeshProUGUI>();
+
+            scoreCanvas.enabled = true;
+            p1score.enabled = true;
+            p2score.enabled = true;
+        }
+    }
 }

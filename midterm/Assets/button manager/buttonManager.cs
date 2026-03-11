@@ -30,6 +30,7 @@ public class buttonManager : MonoBehaviour
     {
        
         StartCoroutine("playerCard");
+       
     
     }
 
@@ -44,7 +45,6 @@ public class buttonManager : MonoBehaviour
         cardCanvas.gameObject.SetActive(true);
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene(1);
-       
     }
 
 
